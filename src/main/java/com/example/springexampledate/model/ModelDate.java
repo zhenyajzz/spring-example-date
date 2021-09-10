@@ -1,15 +1,16 @@
 package com.example.springexampledate.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.sql.Time;
-import java.sql.Timestamp;
+import javax.persistence.*;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ModelDate {
 
     @Id
@@ -17,55 +18,19 @@ public class ModelDate {
     private Long id;
 
     @JsonFormat(pattern = "HH:mm:ss")
-
     private java.sql.Time sqlTime;
 
-    @JsonFormat(pattern = "DD:MM:yyyy")
-    private java.sql.Date sqlDate;
+    @JsonFormat(pattern = "dd:MM:yyyy")
+    @Temporal(TemporalType.DATE)
+    private java.util.Date sqlDate;
 
-    @JsonFormat(pattern = "DD:MM:yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd:MM:yyyy HH:mm:ss")
     private java.sql.Timestamp sqlTimestamp;
 
+    @Enumerated(EnumType.STRING)
+    private MyEnum myEnum;
 
-    public ModelDate() {
-    }
+    @Enumerated(EnumType.ORDINAL)
+    private MyEnum myEnum1;
 
-    public ModelDate(Long id, Time sqlTime, java.sql.Date sqlDate, Timestamp sqlTimestamp) {
-        this.id = id;
-        this.sqlTime = sqlTime;
-        this.sqlDate = sqlDate;
-        this.sqlTimestamp = sqlTimestamp;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Time getSqlTime() {
-        return sqlTime;
-    }
-
-    public void setSqlTime(Time sqlTime) {
-        this.sqlTime = sqlTime;
-    }
-
-    public java.sql.Date getSqlDate() {
-        return sqlDate;
-    }
-
-    public void setSqlDate(java.sql.Date sqlDate) {
-        this.sqlDate = sqlDate;
-    }
-
-    public Timestamp getSqlTimestamp() {
-        return sqlTimestamp;
-    }
-
-    public void setSqlTimestamp(Timestamp sqlTimestamp) {
-        this.sqlTimestamp = sqlTimestamp;
-    }
 }
